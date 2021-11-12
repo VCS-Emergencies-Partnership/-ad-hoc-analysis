@@ -1,0 +1,9 @@
+The current 'profiling_code.py' script that creates the profiling scripts for csv files in the 'curated' folder of the datalake. The code can be tweaked to also run on another datafile types (excel etc.) and also for other folders in the the datalake (pending the 'cleaned' folder being uploaded onto the DSVM).The reports are saved in the 'quality_repots/curated' folder (which has been included in the .gitignore file so not uploaded to Github).  
+
+To run the 'profiling_code.py' script need to be in the 'data_quality_checker' conda environment situated on the DSVM as it has pandas-profiling library installed. 
+
+Run the profiling report script following commands in the terminal:
+  conda activate data_quality_checker
+  python3 profiling_code.py
+  
+  
