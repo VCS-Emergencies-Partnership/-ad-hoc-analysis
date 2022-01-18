@@ -5,7 +5,21 @@ shinyUI(fluidPage(
   br(),
   fluidRow(
     column(
-      4,
+      3,
+      uiOutput("capability_dropdown")
+    ),
+    column(
+      3,
+      checkboxInput(
+        inputId = "chosen_detail_level",
+        label = "Capabilities at subcategory level",
+        value = FALSE
+      )
+    )
+  ),
+  fluidRow(
+    column(
+      3,
       pickerInput(
         inputId = "chosen_lad",
         label = "Local Authorities:",
@@ -15,24 +29,7 @@ shinyUI(fluidPage(
       )
     ),
     column(
-      4,
-      pickerInput(
-        inputId = "chosen_capability_category",
-        label = "Capability category:",
-        choices = sort(unique(tidy_data$capability_category)),
-        selected = sort(unique(tidy_data$capability_category))[1],
-        options = list(`actions-box` = TRUE, title = "Please select capability category"),
-        multiple = F
-      )
-    ),
-    column(
-      4,
-      uiOutput("capability_sub_category_picker")
-    )
-  ),
-  fluidRow(
-    column(
-      4,
+      3,
       pickerInput(
         inputId = "chosen_inital_response_time",
         label = "Initial response time:",
@@ -43,7 +40,7 @@ shinyUI(fluidPage(
       )
     ),
     column(
-      4,
+      2,
       checkboxInput(
         inputId = "provides_vols",
         label = "Provides DBS vols",
@@ -51,7 +48,7 @@ shinyUI(fluidPage(
       )
     ),
     column(
-      4,
+      2,
       checkboxInput(
         inputId = "primary_only",
         label = "Primary response only",
@@ -62,7 +59,7 @@ shinyUI(fluidPage(
   br(),
   br(),
   fluidRow(
-    column(6, DT::DTOutput("table")), 
+    column(6, DT::DTOutput("table")),
     column(6, leafletOutput("map"))
   )
 ))
