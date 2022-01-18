@@ -47,7 +47,6 @@ shinyServer(function(input, output) {
   })
 
   output$map <- renderLeaflet({
-  
     validate(need(input$chosen_lad != "", "Choose a local authority"))
 
     validate(need(nrow(filtered_data()) != 0, "No organisations meet your criteria"))
@@ -59,12 +58,12 @@ shinyServer(function(input, output) {
     lads_to_map <- geographr::boundaries_lad |>
       filter(lad_name %in% lads)
 
-    chosen_lads_bbox <- lads_to_map |>
+    full_map_bbox <- boundaries_lad |>
+      filter(lad_name %in% unique(tidy_data$local_authorities)) |>
       st_bbox()
-      
-      leaflet() |>
-        addProviderTiles(providers$CartoDB.Positron)|>
-        setView(lat = 52.75, lng = -2.0, zoom = 6) |>
+
+    leaflet() |>
+      addProviderTiles(providers$CartoDB.Positron) |>
       addPolygons(
         data = lads_to_map,
         layerId = ~geometry,
@@ -81,10 +80,12 @@ shinyServer(function(input, output) {
           bringToFront = TRUE
         ),
         label = lads_to_map$lad_name
-      ) 
-      # flyToBounds(lng1 = as.numeric(chosen_lads_bbox["xmin"]),
-      #             lat1 = as.numeric(chosen_lads_bbox["ymin"]),
-      #             lng2 = as.numeric(chosen_lads_bbox["xmax"]),
-      #             lat2 = as.numeric(chosen_lads_bbox["ymax"]))
+      ) |>
+      fitBounds(
+        lng1 = as.numeric(full_map_bbox["xmin"]),
+        lat1 = as.numeric(full_map_bbox["ymin"]),
+        lng2 = as.numeric(full_map_bbox["xmax"]),
+        lat2 = as.numeric(full_map_bbox["ymax"])
+      )
   })
 })

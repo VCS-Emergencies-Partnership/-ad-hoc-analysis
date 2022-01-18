@@ -44,8 +44,7 @@ tidy_data <- raw_data |>
   left_join(category_lookup, by = "capability_sub_category") |>
   janitor::clean_names()
 
-full_map_bbox <- boundaries_lad |>
-  st_bbox()
+
 
 # Subcategory list for use in the capabilities drop down (multilevel dropdown)
 # From https://stackoverflow.com/questions/50924933/r-shiny-selectinput-how-to-search-group-name-label
