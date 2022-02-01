@@ -5,10 +5,10 @@ account: britishredcross
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5415410
-bundleId: 5530533
+bundleId: 5531425
 url: https://britishredcross.shinyapps.io/local_capability_mapping_mockup/
-when: 1643716707.7212
-lastSyncTime: 1643716707.72123
+when: 1643733209.16815
+lastSyncTime: 1643733209.16817
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: data/.DS_Store|data/national_data/.DS_Store
+ignoredFiles: data/lad_list.csv|data_prep/lad_list_code.R

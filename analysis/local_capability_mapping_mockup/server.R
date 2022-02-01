@@ -20,8 +20,16 @@ shinyServer(function(input, output) {
   })
 
   filtered_data <- reactive({
-    vols_selected <- ifelse(input$provides_vols, "Yes", unique(tidy_data$provide_dbs_checked_volunteers))
-    response_selected <- ifelse(input$primary_only, "Primary", unique(tidy_data$response_type))
+    vols_selected <- if (input$provides_vols) {
+      "Yes"
+    } else {
+      unique(tidy_data$provide_dbs_checked_volunteers)
+    }
+    response_selected <- if (input$primary_only) {
+      "Primary"
+    } else {
+      unique(tidy_data$response_type)
+    }
 
     tidy_data_filtered <- tidy_data |>
       filter(
