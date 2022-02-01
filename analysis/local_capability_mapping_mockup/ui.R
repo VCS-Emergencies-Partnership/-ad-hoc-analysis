@@ -1,4 +1,6 @@
 shinyUI(fluidPage(
+  # Ste up of Hotjar code https://divadnojnarg.github.io/post/shinyapp_hotjar/
+  tags$head(includeScript("www/hotjar.js")),
   titlePanel("Local capability mapping"),
   "This app aims to show who can do what and where in an emergency (preparedness). This is using mock data.",
   br(),
