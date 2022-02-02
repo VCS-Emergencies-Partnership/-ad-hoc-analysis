@@ -49,6 +49,7 @@ tidy_data <- raw_data |>
 # Subcategory list for use in the capabilities drop down (multilevel dropdown)
 # From https://stackoverflow.com/questions/50924933/r-shiny-selectinput-how-to-search-group-name-label
 category_lookup_factors <- category_lookup |>
-  mutate(across(everything(), as.factor))
+  mutate(across(everything(), as.factor)) |>
+  arrange(capability_sub_category)
 
 multilevel_cat_list <- split(as.list(levels(category_lookup_factors$capability_sub_category)), category_lookup_factors$capability_category)
