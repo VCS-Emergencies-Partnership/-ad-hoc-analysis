@@ -1,4 +1,8 @@
 shinyServer(function(input, output) {
+  
+  # initialise then start the guide
+  guide$init()$start()
+  
   output$capability_dropdown <- renderUI({
     if (input$chosen_detail_level) {
       pickerInput(
@@ -51,7 +55,7 @@ shinyServer(function(input, output) {
 
   output$table <- DT::renderDataTable({
     filtered_data() |>
-      distinct(Name = partner, Wesbite = website, Contact = contact, Summary = specialism_focus)
+      distinct(Name = partner, Wesbite = website, Contact = contact, Summary = specialism_focus, "No. of volunteers" = number_of_volunteers)
   })
 
   output$map <- renderLeaflet({

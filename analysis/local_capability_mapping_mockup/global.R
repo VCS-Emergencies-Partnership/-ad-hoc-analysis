@@ -8,6 +8,10 @@ library(shinyWidgets)
 library(janitor)
 library(DT)
 library(leaflet)
+library(cicerone)
+
+# Guided tour text
+source("guided_tour.R")
 
 # Load in data
 raw_data <- read_excel("data/mock_capability_mapping_data.xlsx",
@@ -26,7 +30,7 @@ categories_names <- read_excel("data/mock_capability_mapping_data.xlsx",
   drop_na()
 
 sub_categories_names <- raw_data |>
-  select(!"Partner":"Provide DBS checked volunteers") |>
+  select(!"Partner":"Number of volunteers") |>
   colnames() |>
   as_tibble() |>
   rename(capability_sub_category = value)
@@ -37,7 +41,7 @@ category_lookup <- bind_cols(categories_names, sub_categories_names)
 # Split rows when more than one LA per org then pivot
 tidy_data <- raw_data |>
   separate_rows("Local Authorities", sep = ", ") |>
-  pivot_longer(!"Partner":"Provide DBS checked volunteers",
+  pivot_longer(!"Partner":"Number of volunteers",
     names_to = "capability_sub_category",
     values_to = "response_type"
   ) |>
