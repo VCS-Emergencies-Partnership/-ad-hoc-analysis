@@ -29,6 +29,7 @@ shinyServer(function(input, output) {
     } else {
       unique(tidy_data$provide_dbs_checked_volunteers)
     }
+    
     response_selected <- if (input$primary_only) {
       "Primary"
     } else {
