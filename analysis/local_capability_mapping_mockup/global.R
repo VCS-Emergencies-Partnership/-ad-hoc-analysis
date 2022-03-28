@@ -18,13 +18,13 @@ source("guided_tour.R")
 # Comment out the other
 
 # Mock data (for app on shinyapps.io)
-raw_data <- read_excel("data/mock_capability_mapping_data.xlsx",
-  sheet = "capability_mapping", skip = 1
-)
-
-# Core partner data
-# raw_data <- read_csv("core_partners/data/core_partners_reformatted.csv",
+# raw_data <- read_excel("data/mock_capability_mapping_data.xlsx",
+#   sheet = "capability_mapping", skip = 1
 # )
+
+#Core partner data
+raw_data <- read_csv("core_partners/data/core_partners_reformatted.csv",
+)
 
 
 # Data wrangling ----

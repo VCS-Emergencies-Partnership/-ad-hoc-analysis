@@ -15,3 +15,7 @@ If you wish to create a pandas profiling report on a csv file not using code Mik
 ### Local capability mapping mockup 
 
 This contains code for a Shiny app created to demo what the local capability mapping project output could look like. The data used is mock data. 
+
+### VCSEP regions boundaries
+
+The VCSEP regional boundaries changed as Thames Valley area moved from the South East to the South West. 
