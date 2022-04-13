@@ -1,0 +1,202 @@
+---
+title: "Testing look up methods"
+output:
+  html_document:
+    df_print: paged
+---
+
+Source: https://appsilon.com/fast-data-lookups-in-r-dplyr-vs-data-table/
+
+# Prep
+```{r, results='hide', message=FALSE, warning=FALSE }
+library(geographr)
+library(tidyverse)
+library(data.table)
+
+options(scipen = 999)
+```
+
+Functions for calculating average times for code
+```{r}
+time <- function(...) {
+  time_measurement <- system.time(eval(...))
+  time_measurement[["user.self"]]
+}
+
+benchmark <- function(..., n = 50) {
+  times <- replicate(n, ...)
+  c(min = min(times), max = max(times), mean = mean(times))
+}
+```
+
+Loading in lookup table and search terms
+```{r}
+lookupdf <- lookup_postcode_oa_11_lsoa_11_msoa_11_lad_20 |>
+  select(postcode, msoa_11_code)
+
+postcodes_to_find <- c("E16AN", "NE11DE")
+```
+
+# Hashtables 
+
+## Create environment
+
+```{r}
+environment_source <- setNames(
+  object = as.list(lookupdf$msoa_11_code),
+  nm = lookupdf$postcode
+)
+
+
+start_time <- Sys.time()
+my_env <- as.environment(environment_source)
+end_time <- Sys.time()
+
+end_time - start_time
+```
+
+Could also try `list2env()` for creating environment and see if any faster from [here](https://riptutorial.com/r/example/18339/environments-as-hash-maps). 
+
+```{r}
+start_time <- Sys.time()
+my_env2 <- list2env(
+  setNames(
+    object = as.list(lookupdf$msoa_11_code),
+    nm = lookupdf$postcode
+  ),
+  envir = NULL,
+  hash = TRUE
+)
+end_time <- Sys.time()
+
+end_time - start_time
+```
+
+
+## Testing search code 
+
+Search single term
+```{r}
+my_env[["E16AN"]]
+```
+
+Search multiple terms have to use `mget`
+```{r}
+mget(postcodes_to_find, envir = my_env)
+```
+
+Just extract the MSOAs 
+```{r}
+mget(postcodes_to_find, envir = my_env) |>
+  unname() |>
+  unlist()
+```
+
+## Testing time 
+
+Search time for single term
+```{r}
+benchmark({
+  time(
+    my_env[["E16AN"]]
+  )
+})
+```
+
+Test search time for multiple terms
+```{r}
+benchmark({
+  time(
+    mget(postcodes_to_find, envir = my_env) |>
+      unname() |>
+      unlist()
+  )
+})
+```
+
+
+# Dplyr
+
+```{r}
+benchmark({
+  time(
+    lookupdf |>
+      filter(postcode %in% postcodes_to_find)
+  )
+})
+```
+
+# Datatable 
+
+```{r}
+lookupdf_datatable <- data.table(lookupdf)
+```
+
+Search time for single term
+```{r}
+benchmark({
+  time(
+    lookupdf_datatable[postcode == "E16AN", ]
+  )
+})
+```
+
+
+```{r}
+lookupdf_datatable[postcode %in% postcodes_to_find, ]
+```
+
+Search time for multiple terms
+```{r}
+benchmark({
+  time(
+    lookupdf_datatable[postcode %in% postcodes_to_find, ]
+  )
+})
+```
+
+
+# Datatable ordered indexes
+
+```{r}
+lookupdf_datatable_ord <- lookupdf_datatable
+time(setkey(lookupdf_datatable_ord, postcode))
+```
+
+```{r}
+lookupdf_datatable_ord
+```
+
+Test code
+```{r}
+lookupdf_datatable[.("E16AN"), nomatch = 0L]
+```
+
+```{r}
+lookupdf_datatable[.(postcodes_to_find), nomatch = 0L]
+```
+
+Search time for single term
+```{r}
+benchmark({
+  time(
+    lookupdf_datatable[.("E16AN"), nomatch = 0L]
+  )
+})
+```
+
+Search time for multiple terms
+```{r}
+benchmark({
+  time(
+    lookupdf_datatable[.(postcodes_to_find), nomatch = 0L]
+  )
+})
+```
+ 
+# Other sources
+ 
+* [Environments - Advanced R](http://adv-r.had.co.nz/Environments.html)
+* [Hashtable performance](https://jeffreyhorner.tumblr.com/post/116325104028/hash-table-performance-in-r-part-ii-in-part-i) 
+* [Benchmarking of hashtables](https://blog.dominodatalab.com/a-quick-benchmark-of-hashtable-implementations-in-r)
+ 

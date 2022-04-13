@@ -19,3 +19,7 @@ This contains code for a Shiny app created to demo what the local capability map
 ### VCSEP regions boundaries
 
 The VCSEP regional boundaries changed as Thames Valley area moved from the South East to the South West. 
+
+### Testing lookup methods
+
+Ahead of new search functionality for geographical areas in future Shiny Apps testing time taken for different approaches of lookup methods (dplyr::filter, data.table, hashtables). 
