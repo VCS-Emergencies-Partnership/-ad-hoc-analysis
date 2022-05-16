@@ -5,7 +5,29 @@ library(demographr)
 library(tidyverse)
 library(leaflet)
 
-mock_high_risk_msoas <- c("E02005702", "E02005704")
+boundaries_map <- boundaries_ltla21 |>
+  filter(str_detect(ltla21_code, "^E")) |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) 
+
+northumberland_ltla <- boundaries_ltla21 |>
+  filter(str_detect(ltla21_name, "Northumberland"))
+
+boundaries_map |>
+  addPolygons(
+    data = northumberland_ltla,
+    fillColor = "red",
+    fillOpacity = 1,
+    color = "black",
+    weight = 0.5
+  )
+
+mock_high_risk_msoas <- c("E02005702", "E02005704", "E02005720")
 
 # Mock RI data ----
 bivariate_color_scale <- tibble(
@@ -47,6 +69,10 @@ ri_msoa_high_risk <- ri_msoa |>
 ri_msoa_low_res <- ri_msoa |>
   filter(group == "3 - 3")
 
+# Mock areas low resilience & high risk of hazard
+ri_msoa_low_res_high_risk <- ri_msoa |>
+  filter(group == "3 - 3", msoa11_code %in% mock_high_risk_msoas)
+
 # Mock RI map ----
 # RI map
 ri_msoa |>
@@ -87,6 +113,23 @@ ri_msoa |>
   ) |>
   addPolygons(
     data = ri_msoa_low_res,
+    fillColor = ~fill_colour,
+    fillOpacity = 1,
+    color = "black",
+    weight = 0.5
+  )
+
+# RI map - low resilience & high risk
+ri_msoa |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = ri_msoa_low_res_high_risk,
     fillColor = ~fill_colour,
     fillOpacity = 1,
     color = "black",
@@ -182,11 +225,11 @@ ri_msoa_sub <- ri_msoa |>
 msoa_service_distance <- population_msoa_20_codes_11 |>
   filter(str_detect(msoa11_name, "Northumberland")) |>
   mutate(distance_to_service_km = total_population / 1000) |>
+  mutate(distance_to_service_km = if_else(msoa11_code == "E02005729", 10.3,  distance_to_service_km)) |>
   select(msoa11_code, distance_to_service_km) |>
   left_join(boundaries_msoa11, by = "msoa11_code") |>
   left_join(ri_msoa_sub , by = "msoa11_code") |>
   st_as_sf()
-
 
 # Mock areas high risk of hazard
 msoa_service_distance_high_risk <- msoa_service_distance |>
@@ -196,30 +239,16 @@ msoa_service_distance_high_risk <- msoa_service_distance |>
 msoa_service_distance_low_res <- msoa_service_distance |>
   filter(group == "3 - 3")
 
-# Area profiles map -------
+# Mock areas low resilience & high risk of hazard
+msoa_service_distance_low_res_high_risk <- msoa_service_distance |>
+  filter(group == "3 - 3", msoa11_code %in% mock_high_risk_msoas)
+
 # Make continuous palette
 min_ind <- min(msoa_service_distance$distance_to_service_km)
 max_ind <- max(msoa_service_distance$distance_to_service_km)
 bins <- round(seq.int(min_ind, max_ind, by = (max_ind - min_ind) / 5), 0)
 pal <- colorBin("Greens", domain = msoa_service_distance$distance_to_service_km, bins = bins)
 
-# Area profiles map 
-msoa_service_distance |>
-  leaflet() |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(
-    fillColor = ~ pal(distance_to_service_km),
-    fillOpacity = 1,
-    color = "black",
-    weight = 0.5
-  ) |>
-  addLegend(
-    pal = pal,
-    values = ~distance_to_service_km,
-    opacity = 0.7,
-    title = "Distance to services (km)",
-    position = "bottomright"
-  )
 
 # Area profiles map - mock areas high risk of hazard
 msoa_service_distance |>
@@ -245,7 +274,7 @@ msoa_service_distance |>
     position = "bottomright"
   )
 
-# Area profiles map - mock areas high risk of low resilience
+# Area profiles map - mock areas of low resilience
 msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
@@ -256,6 +285,30 @@ msoa_service_distance |>
   ) |>
   addPolygons(
     data = msoa_service_distance_low_res,
+    fillColor = ~ pal(distance_to_service_km),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~distance_to_service_km,
+    opacity = 0.9,
+    title = "Distance to services (km)",
+    position = "bottomright"
+  )
+
+# Area profiles map - low resilience & high risk
+msoa_service_distance |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_service_distance_low_res_high_risk,
     fillColor = ~ pal(distance_to_service_km),
     fillOpacity = 0.9,
     color = "black",
@@ -323,6 +376,28 @@ msoa_service_distance |>
   addLegend(
     colors = "black",
     labels = "Area of low resilience",
+    opacity = 0.9,
+    position = "bottomright"
+  )
+
+msoa_service_distance |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.7
+  ) |>
+  addPolygons(
+    data = msoa_service_distance_low_res_high_risk,
+    fillColor = "black",
+    fillOpacity = 0.7,
+    color = "black",
+    weight = 0.7
+  ) |>
+  addLegend(
+    colors = "black",
+    labels = "Area of low resilience & high risk to hazard",
     opacity = 0.9,
     position = "bottomright"
   )
