@@ -134,3 +134,12 @@ vcsep_region_boundaries_updated |>
 vcsep_region_boundaries_updated |>
   st_write("vcsep_regions_updated/vcsep_regions_updated.geojson")
 
+# Calculate Local Authorities within each area
+vcsep_region_boundaries_updated_ltlas <- boundaries_ltla21 |>
+  filter(str_detect(ltla21_code, "^E")) |>
+  st_join(vcsep_region_boundaries_updated, left = TRUE)
+
+vcsep_region_boundaries_updated_ltlas |>
+  st_drop_geometry() |>
+  st_write("vcsep_regions_updated/vcsep_regions_updated_ltlas.csv")
+
