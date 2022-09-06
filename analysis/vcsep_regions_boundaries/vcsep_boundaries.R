@@ -84,8 +84,8 @@ thames_valley_two_tier <- c("Oxfordshire", "Buckinghamshire")
 
 thames_valley <- c(berkshire_ltlas, thames_valley_one_tier, thames_valley_two_tier)
 
-thames_valley_areas <- boundaries_counties_ua_21 |>
-  filter(county_ua_21_name %in% c(thames_valley))
+thames_valley_areas <- boundaries_utla21 |>
+  filter(utla21_name %in% c(thames_valley))
 
 thames_valley_areas |>
   ggplot() +
@@ -130,4 +130,7 @@ vcsep_region_boundaries_updated |>
 # Save updated boundaries 
 vcsep_region_boundaries_updated |>
   st_write("vcsep_regions_updated/vcsep_regions_updated.shp")
+
+vcsep_region_boundaries_updated |>
+  st_write("vcsep_regions_updated/vcsep_regions_updated.geojson")
 
