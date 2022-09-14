@@ -4,7 +4,9 @@ library(sf)
 library(demographr)
 library(tidyverse)
 library(leaflet)
+library(mapview)
 
+# Selection map --------
 boundaries_map <- boundaries_ltla21 |>
   filter(str_detect(ltla21_code, "^E")) |>
   leaflet() |>
@@ -15,19 +17,28 @@ boundaries_map <- boundaries_ltla21 |>
     weight = 0.5
   ) 
 
+# Save default map 
+boundaries_map |>
+setView(lat = 53.00366, lng = -2.547855, zoom = 7) |>
+  mapshot(file = "default_map.png")
+
 northumberland_ltla <- boundaries_ltla21 |>
   filter(str_detect(ltla21_name, "Northumberland"))
 
-boundaries_map |>
+selected_map <- boundaries_map |>
   addPolygons(
     data = northumberland_ltla,
     fillColor = "red",
     fillOpacity = 1,
     color = "black",
     weight = 0.5
-  )
+  ) 
 
-mock_high_risk_msoas <- c("E02005702", "E02005704", "E02005720")
+# Save selected map 
+selected_map |>
+  setView(lat = 53.00366, lng = -2.547855, zoom = 7) |>
+  mapshot(file = "selected_map.png")
+
 
 # Mock RI data ----
 bivariate_color_scale <- tibble(
@@ -62,6 +73,8 @@ ri_msoa <- boundaries_msoa11 |>
   left_join(bivariate_color_scale, by = "group")
 
 # Mock areas high risk of hazard
+mock_high_risk_msoas <- c("E02005702", "E02005704", "E02005720")
+
 ri_msoa_high_risk <- ri_msoa |>
   filter(msoa11_code %in% mock_high_risk_msoas)
 
@@ -75,7 +88,7 @@ ri_msoa_low_res_high_risk <- ri_msoa |>
 
 # Mock RI map ----
 # RI map
-ri_msoa |>
+ri_map_default <- ri_msoa |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -85,8 +98,11 @@ ri_msoa |>
     weight = 0.5
   )
 
+ri_map_default |>
+  mapshot(file = "ri_map_default.png")
+
 # RI map - mock areas high risk of hazard
-ri_msoa |>
+ri_map_high_risk <- ri_msoa |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -102,8 +118,11 @@ ri_msoa |>
     weight = 0.5
   )
 
+ri_map_high_risk |>
+  mapshot(file = "ri_map_high_risk.png")
+
 # RI map - low resilience
-ri_msoa |>
+ri_map_low_res <- ri_msoa |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -119,8 +138,11 @@ ri_msoa |>
     weight = 0.5
   )
 
+ri_map_low_res |>
+  mapshot(file = "ri_map_low_res.png")
+
 # RI map - low resilience & high risk
-ri_msoa |>
+ri_map_low_res_high_risk <- ri_msoa |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -135,6 +157,9 @@ ri_msoa |>
     color = "black",
     weight = 0.5
   )
+
+ri_map_low_res_high_risk |>
+  mapshot(file = "ri_map_low_res_high_risk.png")
 
 # RI legend -----
 # Separate the groups
@@ -213,7 +238,7 @@ ggplot(forlegend, aes(vuln, cap, fill = fill_colour)) +
   )
 
 
-# Area profiles data -------
+# Area profiles data - distance to services -------
 population_msoa_20_codes_11 <- population_msoa_20_codes_11 |>
   rename(msoa11_name = msoa_11_name, msoa11_code = msoa_11_code)
 
@@ -249,9 +274,35 @@ max_ind <- max(msoa_service_distance$distance_to_service_km)
 bins <- round(seq.int(min_ind, max_ind, by = (max_ind - min_ind) / 5), 0)
 pal <- colorBin("Greens", domain = msoa_service_distance$distance_to_service_km, bins = bins)
 
+# Area profiles map 
+service_map_default <- msoa_service_distance |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_service_distance,
+    fillColor = ~ pal(distance_to_service_km),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~distance_to_service_km,
+    opacity = 0.9,
+    title = "Distance to services (km)",
+    position = "bottomright"
+  )
+
+service_map_default |>
+  mapshot(file = "service_map_default.png")
 
 # Area profiles map - mock areas high risk of hazard
-msoa_service_distance |>
+service_map_high_risk <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -274,8 +325,11 @@ msoa_service_distance |>
     position = "bottomright"
   )
 
+service_map_high_risk |>
+  mapshot(file = "service_map_high_risk.png")
+
 # Area profiles map - mock areas of low resilience
-msoa_service_distance |>
+service_map_low_res <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -298,8 +352,11 @@ msoa_service_distance |>
     position = "bottomright"
   )
 
+service_map_low_res |>
+  mapshot(file = "service_map_low_res.png")
+
 # Area profiles map - low resilience & high risk
-msoa_service_distance |>
+service_map_low_res_high_risk <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -322,8 +379,143 @@ msoa_service_distance |>
     position = "bottomright"
   )
 
+service_map_low_res_high_risk |>
+  mapshot(file = "service_map_low_res_high_risk.png")
+
+# Area profiles data - house overcrowding -------
+
+msoa_overcrowding <-  msoa_service_distance |>
+  mutate(overcrowding = distance_to_service_km + runif(1, min = -5, max = 5)) |>
+  select(-distance_to_service_km)
+
+# Mock areas high risk of hazard
+msoa_overcrowding_high_risk <- msoa_overcrowding |>
+  filter(msoa11_code %in% mock_high_risk_msoas)
+
+# Mock areas low resilience
+msoa_overcrowding_low_res <- msoa_overcrowding |>
+  filter(group == "3 - 3")
+
+# Mock areas low resilience & high risk of hazard
+msoa_overcrowding_low_res_high_risk <- msoa_overcrowding |>
+  filter(group == "3 - 3", msoa11_code %in% mock_high_risk_msoas)
+
+# Make continuous palette
+min_ind <- min(msoa_overcrowding$overcrowding)
+max_ind <- max(msoa_overcrowding$overcrowding)
+bins <- round(seq.int(min_ind, max_ind, by = (max_ind - min_ind) / 5), 0)
+pal <- colorBin("Greens", domain = msoa_overcrowding$overcrowding, bins = bins)
+
+# Area profiles map 
+overcrowding_map_default <- msoa_overcrowding |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_overcrowding,
+    fillColor = ~ pal(overcrowding),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~overcrowding,
+    opacity = 0.9,
+    title = "% housing overcrowding",
+    position = "bottomright"
+  )
+
+overcrowding_map_default |>
+  mapshot(file = "overcrowding_map_default.png")
+
+# Area profiles map - mock areas high risk of hazard
+overcrowding_map_high_risk <- msoa_overcrowding |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_overcrowding_high_risk,
+    fillColor = ~ pal(overcrowding),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~overcrowding,
+    opacity = 0.9,
+    title = "% housing overcrowding",
+    position = "bottomright"
+  )
+
+overcrowding_map_high_risk |>
+  mapshot(file = "overcrowding_map_high_risk.png")
+
+# Area profiles map - mock areas of low resilience
+overcrowding_map_low_res <- msoa_overcrowding |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_overcrowding_low_res,
+    fillColor = ~ pal(overcrowding),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~overcrowding,
+    opacity = 0.9,
+    title = "% housing overcrowding",
+    position = "bottomright"
+  )
+
+overcrowding_map_low_res |>
+  mapshot(file = "overcrowding_map_low_res.png")
+
+# Area profiles map - low resilience & high risk
+overcrowding_map_low_res_high_risk <- msoa_overcrowding |>
+  leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillOpacity = 0,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addPolygons(
+    data = msoa_overcrowding_low_res_high_risk,
+    fillColor = ~ pal(overcrowding),
+    fillOpacity = 0.9,
+    color = "black",
+    weight = 0.5
+  ) |>
+  addLegend(
+    pal = pal,
+    values = ~overcrowding,
+    opacity = 0.9,
+    title = "% housing overcrowding",
+    position = "bottomright"
+  )
+
+overcrowding_map_low_res_high_risk |>
+  mapshot(file = "overcrowding_map_low_res_high_risk.png")
+
 # Whole area map -------
-msoa_service_distance |>
+area_map_whole <- msoa_service_distance |>
   summarise(geometry = st_union(geometry)) |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
@@ -332,10 +524,19 @@ msoa_service_distance |>
     fillOpacity = 0.2,
     color = "black",
     weight = 0.7
+  )  |>
+  addLegend(
+    colors = "black",
+    labels = "Selected area",
+    opacity = 0.2,
+    position = "bottomright"
   )
 
+area_map_whole |>
+  mapshot(file = "area_map_whole.png")
 
-msoa_service_distance |>
+# High risk map
+area_map_whole_high_risk <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -349,16 +550,13 @@ msoa_service_distance |>
     fillOpacity = 0.7,
     color = "black",
     weight = 0.7
-  ) |>
-  addLegend(
-    colors = "black",
-    labels = "Area of high risk to hazard",
-    opacity = 0.9,
-    position = "bottomright"
   )
 
+area_map_whole_high_risk |>
+  mapshot(file = "area_map_whole_high_risk.png")
 
-msoa_service_distance |>
+# Low resilience map
+area_map_whole_low_res <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -380,7 +578,11 @@ msoa_service_distance |>
     position = "bottomright"
   )
 
-msoa_service_distance |>
+area_map_whole_low_res |>
+  mapshot(file = "area_map_whole_low_res.png")
+
+# Low resilience & hiigh risk map 
+area_map_whole_low_res_high_risk <- msoa_service_distance |>
   leaflet() |>
   addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(
@@ -401,6 +603,9 @@ msoa_service_distance |>
     opacity = 0.9,
     position = "bottomright"
   )
+
+area_map_whole_low_res_high_risk |>
+  mapshot(file = "area_map_whole_low_res_high_risk.png")
 
 ###############################################################################################################
 
