@@ -113,9 +113,15 @@ thames_valley <- c(berkshire_ltlas, thames_valley_one_tier, thames_valley_two_ti
 thames_valley_ltla_utla <- geographr::lookup_ltla21_utla21 |>
   filter(utla21_name %in% c(thames_valley))
 
+# Naming of BRC Tactical Cells & VCSEP regions slightly different
 lookup_lad_vcsep_ltla21 <- lookup_lad_brc_ltla21_sf |>
   mutate(vcsep_region = if_else(ltla21_code %in% thames_valley_ltla_utla$ltla21_code, "South East", TacticalCell)) |>
-  select(-TacticalCell)
+  select(-TacticalCell) |>
+  mutate(vcsep_region = case_when(
+    vcsep_region == 'South and the Channel Islands' ~ 'South West',
+    vcsep_region == 'Central' ~ 'Midlands & East',
+    TRUE ~ vcsep_region
+  ))
 
 vcsep_region_boundaries_new <- lookup_lad_vcsep_ltla21 |> 
   group_by(vcsep_region) |>
