@@ -155,4 +155,4 @@ vcsep_region_boundaries_new |>
 
 lookup_lad_vcsep_ltla21 |>
   select(-geometry) |>
-  st_write("vcsep_regions_updated/vcsep_regions_updated_ltlas.csv")
+  write_csv("vcsep_regions_updated/vcsep_regions_updated_ltlas.csv")

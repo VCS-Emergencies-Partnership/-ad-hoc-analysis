@@ -10,24 +10,24 @@ E06000008,Blackburn with Darwen,North
 E06000009,Blackpool,North
 E06000010,"Kingston upon Hull, City of",North
 E06000011,East Riding of Yorkshire,North
-E06000012,North East Lincolnshire,Central
-E06000013,North Lincolnshire,Central
+E06000012,North East Lincolnshire,Midlands & East
+E06000013,North Lincolnshire,Midlands & East
 E06000014,York,North
-E06000015,Derby,Central
-E06000016,Leicester,Central
-E06000017,Rutland,Central
-E06000018,Nottingham,Central
-E06000019,"Herefordshire, County of",Central
-E06000020,Telford and Wrekin,Central
-E06000021,Stoke-on-Trent,Central
-E06000022,Bath and North East Somerset,South and the Channel Islands
-E06000023,"Bristol, City of",South and the Channel Islands
-E06000024,North Somerset,South and the Channel Islands
-E06000025,South Gloucestershire,South and the Channel Islands
-E06000026,Plymouth,South and the Channel Islands
-E06000027,Torbay,South and the Channel Islands
-E06000030,Swindon,South and the Channel Islands
-E06000031,Peterborough,Central
+E06000015,Derby,Midlands & East
+E06000016,Leicester,Midlands & East
+E06000017,Rutland,Midlands & East
+E06000018,Nottingham,Midlands & East
+E06000019,"Herefordshire, County of",Midlands & East
+E06000020,Telford and Wrekin,Midlands & East
+E06000021,Stoke-on-Trent,Midlands & East
+E06000022,Bath and North East Somerset,South West
+E06000023,"Bristol, City of",South West
+E06000024,North Somerset,South West
+E06000025,South Gloucestershire,South West
+E06000026,Plymouth,South West
+E06000027,Torbay,South West
+E06000030,Swindon,South West
+E06000031,Peterborough,Midlands & East
 E06000032,Luton,South East
 E06000033,Southend-on-Sea,South East
 E06000034,Thurrock,South East
@@ -46,43 +46,43 @@ E06000046,Isle of Wight,South East
 E06000047,County Durham,North
 E06000049,Cheshire East,North
 E06000050,Cheshire West and Chester,North
-E06000051,Shropshire,Central
-E06000052,Cornwall,South and the Channel Islands
-E06000053,Isles of Scilly,South and the Channel Islands
-E06000054,Wiltshire,South and the Channel Islands
+E06000051,Shropshire,Midlands & East
+E06000052,Cornwall,South West
+E06000053,Isles of Scilly,South West
+E06000054,Wiltshire,South West
 E06000055,Bedford,South East
 E06000056,Central Bedfordshire,South East
 E06000057,Northumberland,North
-E06000058,"Bournemouth, Christchurch and Poole",South and the Channel Islands
-E06000059,Dorset,South and the Channel Islands
+E06000058,"Bournemouth, Christchurch and Poole",South West
+E06000059,Dorset,South West
 E06000060,Buckinghamshire,South East
-E07000008,Cambridge,Central
-E07000009,East Cambridgeshire,Central
-E07000010,Fenland,Central
-E07000011,Huntingdonshire,Central
-E07000012,South Cambridgeshire,Central
+E07000008,Cambridge,Midlands & East
+E07000009,East Cambridgeshire,Midlands & East
+E07000010,Fenland,Midlands & East
+E07000011,Huntingdonshire,Midlands & East
+E07000012,South Cambridgeshire,Midlands & East
 E07000026,Allerdale,North
 E07000027,Barrow-in-Furness,North
 E07000028,Carlisle,North
 E07000029,Copeland,North
 E07000030,Eden,North
 E07000031,South Lakeland,North
-E07000032,Amber Valley,Central
-E07000033,Bolsover,Central
-E07000034,Chesterfield,Central
-E07000035,Derbyshire Dales,Central
-E07000036,Erewash,Central
-E07000037,High Peak,Central
-E07000038,North East Derbyshire,Central
-E07000039,South Derbyshire,Central
-E07000040,East Devon,South and the Channel Islands
-E07000041,Exeter,South and the Channel Islands
-E07000042,Mid Devon,South and the Channel Islands
-E07000043,North Devon,South and the Channel Islands
-E07000044,South Hams,South and the Channel Islands
-E07000045,Teignbridge,South and the Channel Islands
-E07000046,Torridge,South and the Channel Islands
-E07000047,West Devon,South and the Channel Islands
+E07000032,Amber Valley,Midlands & East
+E07000033,Bolsover,Midlands & East
+E07000034,Chesterfield,Midlands & East
+E07000035,Derbyshire Dales,Midlands & East
+E07000036,Erewash,Midlands & East
+E07000037,High Peak,Midlands & East
+E07000038,North East Derbyshire,Midlands & East
+E07000039,South Derbyshire,Midlands & East
+E07000040,East Devon,South West
+E07000041,Exeter,South West
+E07000042,Mid Devon,South West
+E07000043,North Devon,South West
+E07000044,South Hams,South West
+E07000045,Teignbridge,South West
+E07000046,Torridge,South West
+E07000047,West Devon,South West
 E07000061,Eastbourne,South East
 E07000062,Hastings,South East
 E07000063,Lewes,South East
@@ -100,12 +100,12 @@ E07000074,Maldon,South East
 E07000075,Rochford,South East
 E07000076,Tendring,South East
 E07000077,Uttlesford,South East
-E07000078,Cheltenham,South and the Channel Islands
-E07000079,Cotswold,South and the Channel Islands
-E07000080,Forest of Dean,South and the Channel Islands
-E07000081,Gloucester,South and the Channel Islands
-E07000082,Stroud,South and the Channel Islands
-E07000083,Tewkesbury,South and the Channel Islands
+E07000078,Cheltenham,South West
+E07000079,Cotswold,South West
+E07000080,Forest of Dean,South West
+E07000081,Gloucester,South West
+E07000082,Stroud,South West
+E07000083,Tewkesbury,South West
 E07000084,Basingstoke and Deane,South East
 E07000085,East Hampshire,South East
 E07000086,Eastleigh,South East
@@ -147,29 +147,29 @@ E07000125,Rossendale,North
 E07000126,South Ribble,North
 E07000127,West Lancashire,North
 E07000128,Wyre,North
-E07000129,Blaby,Central
-E07000130,Charnwood,Central
-E07000131,Harborough,Central
-E07000132,Hinckley and Bosworth,Central
-E07000133,Melton,Central
-E07000134,North West Leicestershire,Central
-E07000135,Oadby and Wigston,Central
-E07000136,Boston,Central
-E07000137,East Lindsey,Central
-E07000138,Lincoln,Central
-E07000139,North Kesteven,Central
-E07000140,South Holland,Central
-E07000141,South Kesteven,Central
-E07000142,West Lindsey,Central
-E07000143,Breckland,Central
-E07000144,Broadland,Central
-E07000145,Great Yarmouth,Central
-E07000146,King's Lynn and West Norfolk,Central
-E07000147,North Norfolk,Central
-E07000148,Norwich,Central
-E07000149,South Norfolk,Central
-E06000061,North Northamptonshire,Central
-E06000062,West Northamptonshire,Central
+E07000129,Blaby,Midlands & East
+E07000130,Charnwood,Midlands & East
+E07000131,Harborough,Midlands & East
+E07000132,Hinckley and Bosworth,Midlands & East
+E07000133,Melton,Midlands & East
+E07000134,North West Leicestershire,Midlands & East
+E07000135,Oadby and Wigston,Midlands & East
+E07000136,Boston,Midlands & East
+E07000137,East Lindsey,Midlands & East
+E07000138,Lincoln,Midlands & East
+E07000139,North Kesteven,Midlands & East
+E07000140,South Holland,Midlands & East
+E07000141,South Kesteven,Midlands & East
+E07000142,West Lindsey,Midlands & East
+E07000143,Breckland,Midlands & East
+E07000144,Broadland,Midlands & East
+E07000145,Great Yarmouth,Midlands & East
+E07000146,King's Lynn and West Norfolk,Midlands & East
+E07000147,North Norfolk,Midlands & East
+E07000148,Norwich,Midlands & East
+E07000149,South Norfolk,Midlands & East
+E06000061,North Northamptonshire,Midlands & East
+E06000062,West Northamptonshire,Midlands & East
 E07000163,Craven,North
 E07000164,Hambleton,North
 E07000165,Harrogate,North
@@ -177,32 +177,32 @@ E07000166,Richmondshire,North
 E07000167,Ryedale,North
 E07000168,Scarborough,North
 E07000169,Selby,North
-E07000170,Ashfield,Central
-E07000171,Bassetlaw,Central
-E07000172,Broxtowe,Central
-E07000173,Gedling,Central
-E07000174,Mansfield,Central
-E07000175,Newark and Sherwood,Central
-E07000176,Rushcliffe,Central
+E07000170,Ashfield,Midlands & East
+E07000171,Bassetlaw,Midlands & East
+E07000172,Broxtowe,Midlands & East
+E07000173,Gedling,Midlands & East
+E07000174,Mansfield,Midlands & East
+E07000175,Newark and Sherwood,Midlands & East
+E07000176,Rushcliffe,Midlands & East
 E07000177,Cherwell,South East
 E07000178,Oxford,South East
 E07000179,South Oxfordshire,South East
 E07000180,Vale of White Horse,South East
 E07000181,West Oxfordshire,South East
-E07000187,Mendip,South and the Channel Islands
-E07000188,Sedgemoor,South and the Channel Islands
-E07000189,South Somerset,South and the Channel Islands
-E07000192,Cannock Chase,Central
-E07000193,East Staffordshire,Central
-E07000194,Lichfield,Central
-E07000195,Newcastle-under-Lyme,Central
-E07000196,South Staffordshire,Central
-E07000197,Stafford,Central
-E07000198,Staffordshire Moorlands,Central
-E07000199,Tamworth,Central
-E07000200,Babergh,Central
-E07000202,Ipswich,Central
-E07000203,Mid Suffolk,Central
+E07000187,Mendip,South West
+E07000188,Sedgemoor,South West
+E07000189,South Somerset,South West
+E07000192,Cannock Chase,Midlands & East
+E07000193,East Staffordshire,Midlands & East
+E07000194,Lichfield,Midlands & East
+E07000195,Newcastle-under-Lyme,Midlands & East
+E07000196,South Staffordshire,Midlands & East
+E07000197,Stafford,Midlands & East
+E07000198,Staffordshire Moorlands,Midlands & East
+E07000199,Tamworth,Midlands & East
+E07000200,Babergh,Midlands & East
+E07000202,Ipswich,Midlands & East
+E07000203,Mid Suffolk,Midlands & East
 E07000207,Elmbridge,South East
 E07000208,Epsom and Ewell,South East
 E07000209,Guildford,South East
@@ -214,11 +214,11 @@ E07000214,Surrey Heath,South East
 E07000215,Tandridge,South East
 E07000216,Waverley,South East
 E07000217,Woking,South East
-E07000218,North Warwickshire,Central
-E07000219,Nuneaton and Bedworth,Central
-E07000220,Rugby,Central
-E07000221,Stratford-on-Avon,Central
-E07000222,Warwick,Central
+E07000218,North Warwickshire,Midlands & East
+E07000219,Nuneaton and Bedworth,Midlands & East
+E07000220,Rugby,Midlands & East
+E07000221,Stratford-on-Avon,Midlands & East
+E07000222,Warwick,Midlands & East
 E07000223,Adur,South East
 E07000224,Arun,South East
 E07000225,Chichester,South East
@@ -226,19 +226,19 @@ E07000226,Crawley,South East
 E07000227,Horsham,South East
 E07000228,Mid Sussex,South East
 E07000229,Worthing,South East
-E07000234,Bromsgrove,Central
-E07000235,Malvern Hills,Central
-E07000236,Redditch,Central
-E07000237,Worcester,Central
-E07000238,Wychavon,Central
-E07000239,Wyre Forest,Central
+E07000234,Bromsgrove,Midlands & East
+E07000235,Malvern Hills,Midlands & East
+E07000236,Redditch,Midlands & East
+E07000237,Worcester,Midlands & East
+E07000238,Wychavon,Midlands & East
+E07000239,Wyre Forest,Midlands & East
 E07000240,St Albans,South East
 E07000241,Welwyn Hatfield,South East
 E07000242,East Hertfordshire,South East
 E07000243,Stevenage,South East
-E07000244,East Suffolk,Central
-E07000245,West Suffolk,Central
-E07000246,Somerset West and Taunton,South and the Channel Islands
+E07000244,East Suffolk,Midlands & East
+E07000245,West Suffolk,Midlands & East
+E07000246,Somerset West and Taunton,South West
 E08000001,Bolton,North
 E08000002,Bury,North
 E08000003,Manchester,North
@@ -262,13 +262,13 @@ E08000021,Newcastle upon Tyne,North
 E08000022,North Tyneside,North
 E08000023,South Tyneside,North
 E08000024,Sunderland,North
-E08000025,Birmingham,Central
-E08000026,Coventry,Central
-E08000027,Dudley,Central
-E08000028,Sandwell,Central
-E08000029,Solihull,Central
-E08000030,Walsall,Central
-E08000031,Wolverhampton,Central
+E08000025,Birmingham,Midlands & East
+E08000026,Coventry,Midlands & East
+E08000027,Dudley,Midlands & East
+E08000028,Sandwell,Midlands & East
+E08000029,Solihull,Midlands & East
+E08000030,Walsall,Midlands & East
+E08000031,Wolverhampton,Midlands & East
 E08000032,Bradford,North
 E08000033,Calderdale,North
 E08000034,Kirklees,North
