@@ -1,6 +1,9 @@
 # Pandas profiling reports
 data_quality/quality_reports
 
+# NFVI data
+analysis/nfvi_testing/data
+
 # History files
 .Rhistory
 .Rapp.history
