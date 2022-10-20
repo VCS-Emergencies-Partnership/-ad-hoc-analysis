@@ -3,12 +3,24 @@ library(dplyr)
 library(geographr)
 library(stringr)
 library(demographr)
+library(compositr)
 
 # Data downloaded https://www.climatejust.org.uk/map
 # 'Download' button on left hand side of page
 # 'Excel format' -> 'Neighbourhood Flood Vulnerability Index (NFVI) and Social Flood Risk Index (SFRI) data' 
-raw_data <- read_excel("data/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.xlsx",
-                       sheet = "Data") 
+tf <- download_file("http://maps.humanities.manchester.ac.uk/cj/2018/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.zip", ".zip")
+
+tf |>
+  unzip(exdir = tempdir())
+
+raw_data <- read_excel(list.files(
+  tempdir(),
+  pattern = "Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.xlsx",
+  full.names = TRUE
+),
+sheet = "Data"
+) 
+
 
 scotland_dz_ltla <- lookup_dz11_iz11_ltla20 |>
   select(code = dz11_code, ltla_name = ltla20_name, ltla_code = ltla20_code)

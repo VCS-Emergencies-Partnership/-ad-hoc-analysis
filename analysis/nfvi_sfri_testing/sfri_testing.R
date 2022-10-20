@@ -1,10 +1,21 @@
 library(geographr)
+library(compositr)
+library(sf)
+library(dplyr)
 
 # Data downloaded https://www.climatejust.org.uk/map
 # 'Download' button on left hand side of page
 # 'Excel format' -> 'Neighbourhood Flood Vulnerability Index (NFVI) and Social Flood Risk Index (SFRI) data'
-raw <-
-  read_sf("analysis/area-planning/data/climate-just-maps/CJ2017_NFVI_SRFI_Full_Dataset_AUGUST_2018.shp")
+tf <- download_file("http://maps.humanities.manchester.ac.uk/cj/2018/CJ2017_NFVI_SRFI_Full_Dataset_AUGUST_2018.zip", ".zip")
+
+tf |>
+  unzip(exdir = tempdir())
+
+raw <- read_sf(list.files(
+  tempdir(),
+  pattern = "^CJ2017_NFVI_SRFI_Full_Dataset_AUGUST_2018.shp$",
+  full.names = TRUE
+)) 
 
 # Positive scores = more vulnerable/risk
 # https://www.climatejust.org.uk/sites/default/files/INFO_Sheet_SFRI.pdf

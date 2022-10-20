@@ -6,13 +6,33 @@ library(arsenal) # for comparedf
 # Data downloaded https://www.climatejust.org.uk/map
 # 'Download' button on left hand side of page
 # 'Excel format' -> 'Neighbourhood Flood Vulnerability Index (NFVI) and Social Flood Risk Index (SFRI) data'
-older_raw_data <- read_excel("data/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_March2018.xlsx",
-  sheet = "Data"
-)
+tf <- download_file("http://maps.humanities.manchester.ac.uk/cj/2018/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_March2018.xlsx", ".xlsx")
+
+tf |>
+  unzip(exdir = tempdir())
+
+older_raw_data <- read_excel(list.files(
+  tempdir(),
+  pattern = "Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.xlsx",
+  full.names = TRUE
+),
+sheet = "Data"
+) 
+
+
 # 'Revised August 2018 for improved SFRI mapping (see Excel notes)'
-raw_data <- read_excel("data/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.xlsx",
-  sheet = "Data"
-)
+tf <- download_file("http://maps.humanities.manchester.ac.uk/cj/2018/Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.zip", ".zip")
+
+tf |>
+  unzip(exdir = tempdir())
+
+raw_data <- read_excel(list.files(
+  tempdir(),
+  pattern = "Climate_Just_2017_Master_Excel_Sheet_NFVI_and_SFRI_August2018.xlsx",
+  full.names = TRUE
+),
+sheet = "Data"
+) 
 
 data_nfvi <- raw_data |>
   select(-contains("SFRI"))
