@@ -1,0 +1,41 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Western Power Distributor 
+
+https://powercuts.westernpower.co.uk/tabular
+https://www.westernpower.co.uk/terms-and-conditions
+
+```{r}
+paths_allowed(domain = "https://powercuts.westernpower.co.uk", paths = "/tabular/")
+```
+
+# SSEN
+
+https://powertrack.ssen.co.uk/powertrack
+Can't find terms and conditions page
+
+```{r}
+paths_allowed(domain = "https://powertrack.ssen.co.uk", paths = "/powertrack/")
+```
+
+
+# Electricity North West
+
+https://www.enwl.co.uk/power-cuts/power-cuts-power-cuts-live-power-cut-information-fault-list/fault-list/?postcodeOrReferenceNumber=
+https://www.enwl.co.uk/about-us/terms-and-conditions/
+
+```{r}
+paths_allowed(domain = "https://www.enwl.co.uk", paths = "/power-cuts/")
+```
+
+# Scottish Power 
+
+https://www.spenergynetworks.co.uk/pages/power_cuts_list.aspx
+https://www.spenergynetworks.co.uk/pages/legal.aspx
+
+```{r}
+paths_allowed(domain = "https://www.spenergynetworks.co.uk/", paths = "/pages/")
+```

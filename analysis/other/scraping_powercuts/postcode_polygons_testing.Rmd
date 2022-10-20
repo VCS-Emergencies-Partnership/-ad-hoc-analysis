@@ -1,0 +1,49 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# CodePoint Ordnance survey ----
+CodePoint Ordnance survey https://www.ordnancesurvey.co.uk/business-government/products/code-point-polygons
+Downloaded a sample
+Has it had full postcode polygons e.g. IV1 1AD
+
+
+```{r}
+library(sf)
+library(ggplot2)
+
+test <- read_sf("~/Desktop/Code-Point with Polygons Scotland SHAPE/iv_sample.shp")
+```
+
+```{r}
+test
+```
+
+```{r}
+ggplot(test) +
+  geom_sf()
+```
+
+# Outerlogistics data attempt ---
+
+Only outer postcodes e.g. AB - but need at more specific area
+
+https://www.opendoorlogistics.com/data/
+https://www.opendoorlogistics.com/downloads/ #Download reconstructed UK postcode polygons (January 2015) 
+
+```{r}
+test2 <- st_read("Desktop/Distribution/Areas.shp")
+```
+
+```{r}
+test2
+```
+
+# Other postcode data ---
+Also no good as only outer https://github.com/missinglink/uk-postcode-polygons
+
+Postcode lat/long https://www.r-bloggers.com/2018/03/gb-postcode-polygons-open-data/
+https://osdatahub.os.uk/downloads/open/CodePointOpen?_ga=2.8641077.1211545509.1638911522-1098383458.1638911522
+
+https://redirect.viglink.com/?format=go&jsonp=vglnk_163891255106112&key=949efb41171ac6ec1bf7f206d57e90b8&libId=kwwm40m001021u9s000DAbl2fse56&loc=https%3A%2F%2Fwww.r-bloggers.com%2F2018%2F03%2Fgb-postcode-polygons-open-data%2F&v=1&out=https%3A%2F%2Fdoi.org%2F10.6084%2Fm9.figshare.6050105.v2&ref=https%3A%2F%2Fwww.google.com%2F&title=GB%20postcode%20polygons%20%E2%80%93%20open%20data%20%7C%20R-bloggers&txt=Download%20postcode%20polygons

@@ -1,0 +1,60 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(rvest)
+library(robotstxt)  
+```
+
+# UK Power Networks ----
+https://www.ukpowernetworks.co.uk/internet/en/terms-and-conditions/:
+
+You are permitted to download and print content from our site solely for your own internal business purposes and/or personal use. Our site content must not be copied or reproduced, used or otherwise dealt with for any other reason. 
+
+```{r}
+url <- "https://www.ukpowernetworks.co.uk/power-cut/list"
+```
+
+Use functions to check if scraping allowed https://github.com/ropensci/robotstxt
+
+```{r}
+paths_allowed(domain = "https://www.ukpowernetworks.co.uk", paths = "/power-cut/")
+paths_allowed(domain = "https://www.ukpowernetworks.co.uk", paths = "/power-cut/list")
+```
+
+```{r}
+html <- read_html(url)
+```
+
+```{r}
+html
+```
+
+```{r}
+body_nodes <- html %>% 
+  html_node("body") %>% 
+  html_children()
+
+body_nodes
+```
+
+
+
+class="table table-responsive dataTable no-footer"
+
+```{r}
+tidy_power_data <- html %>%
+  html_table() 
+```
+
+```{r}
+tidy_power_data
+```
+
+
+# Other provider tables 
+https://www.spenergynetworks.co.uk/pages/power_cuts_list.aspx
+https://powertrack.ssen.co.uk/powertrack (table at side)
+
