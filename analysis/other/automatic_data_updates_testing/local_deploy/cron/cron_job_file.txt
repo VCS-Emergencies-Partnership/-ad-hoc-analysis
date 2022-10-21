@@ -1,0 +1,23 @@
+This file has the cron job steps to run both pre-processing and then deployment to shinyapps.io:
+
+1. Open cron tab
+crontab -e
+
+2. Click 'I' for insert mode. 
+
+3. Input the following command 
+
+CRON_DIR=insert_path_to_project
+*/15 * * * *  cd $CRON_DIR && /usr/local/bin/Rscript processing_script.R && /usr/local/bin/Rscript deploy.R > cron/cron_output_`date +\%d\%m\%y`.txt 2>&1
+
+4. Click 'esc' and then type ':wq' and then enter to save and close. 
+
+5. If doesn't run may need to give permissions for file 
+
+6. Can check jobs using
+Crontab -l 
+
+Info on file paths in cronjobs https://cronitor.io/cron-reference/cron-job-working-directory
+Info on full path to Rscript from https://stackoverflow.com/questions/55547764/cron-not-executing-r-script-file
+Info on redirecting the output file and emailing output https://unix.stackexchange.com/questions/163352/what-does-dev-null-21-mean-in-this-article-of-crontab-basics
+Info on relative file paths in an Rproj using cronjobs (to come back to) https://community.rstudio.com/t/best-way-to-define-paths-for-a-file-running-on-a-cron/2061/19
