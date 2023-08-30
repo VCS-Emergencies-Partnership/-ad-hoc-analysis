@@ -7,6 +7,10 @@ analysis/nfvi_testing/data
 # WTA data 
 analysis/working-together-agreement/data
 
+# Mailchimp data and analysis
+analysis/mailchimp-analysis/data
+analysis/mailchimp-analysis/outputs
+
 # History files
 .Rhistory
 .Rapp.history
