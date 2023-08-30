@@ -4,6 +4,9 @@ data_quality/quality_reports
 # NFVI data
 analysis/nfvi_testing/data
 
+# WTA data 
+analysis/working-together-agreement/data
+
 # History files
 .Rhistory
 .Rapp.history
