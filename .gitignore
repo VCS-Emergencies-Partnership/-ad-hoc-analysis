@@ -7,8 +7,9 @@ analysis/nfvi_testing/data
 # WTA data 
 analysis/working-together-agreement/data
 
-# LRF rating outputs
+# LRF rating outputs and data
 analysis/lrf_boundaries/outputs
+analysis/lrf_boundaries/data
 
 # Mailchimp data and analysis
 analysis/mailchimp-analysis/data
