@@ -31,8 +31,12 @@ lrf_rating |>
   ggplot() +
   geom_sf(aes(fill = rating)) +
   theme_void() +
-  scale_fill_manual(values = c("green", "yellow"), na.value="lightgrey") +
-  theme(legend.position="none")
+  scale_fill_manual(values = c("#4CBB17", "#FDDA0D"), na.value="lightgrey") +
+  theme(legend.position="none",
+        plot.title = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5)) +
+  labs(title = "LRF Rating August 2023",
+       caption = "Each LRF in England has been assigned either\na green or amber rating by the VCS EP")
 
 # Save the map
 ggsave("lrf_rating.png", path = "analysis/lrf_boundaries/outputs/", width = 15, height = 8, dpi = 300)
