@@ -19,8 +19,10 @@ lrf_boundaries |>
 #   st_drop_geometry() |>
 #   write_csv("analysis/lrf_boundaries/outputs/lrf_names.csv")
 
+# Read in the data file containing the Green/Amber rating assigned by the engagement team
 rating <- read_csv("analysis/lrf_boundaries/data/lrf_names.csv")
 
+# Join this to the boundary file
 lrf_rating <- lrf_boundaries |>
   left_join(rating)
 
